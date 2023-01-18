@@ -1,17 +1,9 @@
-from selenium import webdriver
+from BasicTest import BasicTest
 from pages.questions_about_important_page import QuestionsAboutImportant
 import allure
 
 
-class TestQuestionsAboutImportant:
-    driver = None
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
-        cls.driver.get("https://qa-scooter.praktikum-services.ru/")
-
+class TestQuestionsAboutImportant(BasicTest):
     @allure.step('Тапаем на вопрос и проверяем ответ')
     @allure.title('Сколько это стоит? И как оплатить?')
     @allure.description('Ожидаем, что раскроется div и отобразится ответ')
@@ -84,6 +76,3 @@ class TestQuestionsAboutImportant:
         questions_about_important.click_to_outside_mkad()
         questions_about_important.check_outside_mkad_visible()
 
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()

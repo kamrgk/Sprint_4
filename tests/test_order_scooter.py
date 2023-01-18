@@ -1,15 +1,9 @@
-from selenium import webdriver
 import allure
+from BasicTest import BasicTest
 from pages.order_scooter_page import OrderScooter
 
 
-class TestOrderScooter:
-    driver = None
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
+class TestOrderScooter(BasicTest):
 
     @allure.step('Заполняем форму заказа самоката')
     @allure.title('Заказываем самокат с заполнением в том числе необязательных полей')
@@ -20,7 +14,6 @@ class TestOrderScooter:
         address = "Ленина 1"
         phone = "+77777777777"
 
-        self.driver.get("https://qa-scooter.praktikum-services.ru/")
         order_scooter = OrderScooter(self.driver)
         order_scooter.open_order_page_from_header_button()
         order_scooter.fill_info_about_client(name, surname, address, phone)
@@ -37,7 +30,6 @@ class TestOrderScooter:
         address = "Тестовый адрес 1"
         phone = "+71234567890"
 
-        self.driver.get("https://qa-scooter.praktikum-services.ru/")
         order_scooter = OrderScooter(self.driver)
         order_scooter.open_order_page_from_body_button()
         order_scooter.fill_info_about_client(name, surname, address, phone)
@@ -59,6 +51,3 @@ class TestOrderScooter:
         order_scooter = OrderScooter(self.driver)
         order_scooter.click_to_yandex_logo_in_header()
 
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
