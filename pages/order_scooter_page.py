@@ -147,12 +147,16 @@ class OrderScooter:
 
         assert self.driver.current_url == "https://qa-scooter.praktikum-services.ru/"
 
-    @allure.step('Ждем чтобы логотип Яндекс был кликабелен и тапаем на него и проверяем, что открылась главная страница Яндекс')
+    @allure.step(
+        'Ждем чтобы логотип Яндекс был кликабелен и тапаем на него и проверяем, что открылась главная страница Яндекс')
+    @allure.description('Сайт Яндекс откроется в новой вкладке')
     def click_to_yandex_logo_in_header(self):
         WebDriverWait(self.driver, 10).until(
             expected_conditions.element_to_be_clickable(Locators.yandex_header_logo)
         )
         self.driver.find_element(*Locators.yandex_header_logo).click()
+
+        self.driver.switch_to.window(self.driver.window_handles[1])
 
         WebDriverWait(self.driver, 10).until(
             expected_conditions.element_to_be_clickable(Locators.yandex_search)
